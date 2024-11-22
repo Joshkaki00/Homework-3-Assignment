@@ -14,8 +14,16 @@ In this assignment, you will create a Flask web application with multiple routes
 
 To run the Flask application, follow these steps:
 1. (Optional) Install and activate a virtual environment:
+
+    Install with:
+
     ```sh
     python3 -m venv venv/
+    ```
+
+    Then activate the environment:
+
+    ```sh
     source venv/bin/activate
     ```
 
