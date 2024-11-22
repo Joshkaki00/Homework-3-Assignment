@@ -19,15 +19,10 @@ To run the Flask application, follow these steps:
     pip install Flask
     ```
 
-2. **Set Environment Variables**: Set the `FLASK_APP` environment variable to the name of your main application file. For example:
-    ```sh
-    export FLASK_APP=app.py
-    ```
-
-3. **Run the Application**: Start the Flask development server by running:
+2. **Run the Application**: Start the Flask development server by running:
     ```sh
     python app.py
     ```
 
-4. **Access the Application**: Open your web browser and go to `http://127.0.0.1:3000` to view your application.
+3. **Access the Application**: Open your web browser and go to `http://127.0.0.1:3000` to view your application.
 
