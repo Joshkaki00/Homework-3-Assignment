@@ -210,6 +210,9 @@ def gif_search():
 
         gifs = json.loads(response.content).get('results')
 
+        if not gifs:
+            return render_template('gif_search.html', error="No GIFs found for your search query.")
+
         context = {
             'gifs': gifs
         }
