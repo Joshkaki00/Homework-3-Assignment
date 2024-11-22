@@ -1,3 +1,33 @@
 # Homework 3: More Forms
 
-Follow the instructions [here](https://github.com/Tech-at-DU/ACS1710-Web-Architecture/blob/master/Assignments/03-More-Forms.md) to complete and submit this assignment.
+In this assignment, you will create a Flask web application with multiple routes to handle different functionalities. Follow the instructions below to complete and submit this assignment.
+
+## Instructions
+
+1. **Setup Flask Application**: Create a Flask application and set up the necessary routes.
+2. **Compliments Route**: Create a route to show a form where users can request compliments and display the results.
+3. **Animal Facts Route**: Create a route to show a form where users can select an animal and display a fact about the chosen animal.
+4. **Image Filter Route**: Create a route to upload an image, apply a filter using the Pillow library, and display the filtered image.
+5. **GIF Search Route**: Create a route to search for GIFs using the Tenor API and display the results.
+
+## How to Run the Application
+
+To run the Flask application, follow these steps:
+
+1. **Install Dependencies**: Ensure you have Python and Flask installed. You can install Flask using pip:
+    ```sh
+    pip install Flask
+    ```
+
+2. **Set Environment Variables**: Set the `FLASK_APP` environment variable to the name of your main application file. For example:
+    ```sh
+    export FLASK_APP=app.py
+    ```
+
+3. **Run the Application**: Start the Flask development server by running:
+    ```sh
+    python app.py
+    ```
+
+4. **Access the Application**: Open your web browser and go to `http://127.0.0.1:3000` to view your application.
+
