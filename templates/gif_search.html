@@ -36,7 +36,11 @@ Gif Search
     <p>Here are your GIFs:</p>
     {% for gif in gifs %}
     <p>
-        <img src="{{ gif['media'][0]['gif']['url'] }}" alt="GIF">
+        {% if gif.media_formats.gif.url %}
+            <img src="{{ gif['media_formats']['gif']['url'] }}" alt="GIF">
+        {% else %}
+            <span>No GIF available</span>
+        {% endif %}
     </p>
     {% endfor %}
 </section>
