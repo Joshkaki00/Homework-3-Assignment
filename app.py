@@ -180,8 +180,8 @@ pp = PrettyPrinter(indent=4)
 def gif_search():
     """Show a form to search for GIFs and show resulting GIFs from Tenor API."""
     if request.method == 'POST':
+        # Validate form inputs
         search_query = request.form.get('search_query', '').strip()
-        num_gifs = int(request.form.get('quantity', 10))
         if not search_query:
             app.logger.info("Empty search query submitted.")
             return render_template('gif_search.html', error="Search query cannot be empty.")
@@ -204,7 +204,7 @@ def gif_search():
                     'limit': num_gifs
                 }
             )
-            response.raise_for_status() 
+            response.raise_for_status()  # Raise an error for HTTP codes >= 400
             gifs = response.json().get('results', [])  # Get 'results' from JSON
             pp.pprint(gifs)  # Debug: Log API response to terminal
         except requests.exceptions.RequestException as e:
@@ -220,6 +220,9 @@ def gif_search():
         # Pass GIFs to template
         context = {'gifs': gifs}
         return render_template('gif_search.html', **context)
+
+    # Default case: Return the form for GET requests
+    return render_template('gif_search.html')
 
 if __name__ == '__main__':
     app.config['ENV'] = 'development'
