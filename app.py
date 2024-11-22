@@ -183,6 +183,7 @@ def gif_search():
         search_query = request.form.get('search_query')
         num_gifs = int(request.form.get('quantity', 10))
         if not search_query or search_query.strip() == "":
+            app.logger.info("Empty search query submitted.")
             return render_template('gif_search.html', error="Search query cannot be empty.")
         try:
             num_gifs = int(num_gifs)
