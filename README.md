@@ -14,18 +14,24 @@ In this assignment, you will create a Flask web application with multiple routes
 
 To run the Flask application, follow these steps:
 
-1. (Optional) Install and Activate a virtual environment.
+1. (Optional) Install and activate a virtual environment:
     ```sh
     python3 -m venv venv/
+    source venv/bin/activate
     ```
 
-    ```sh
-    source venv/bin/activate
+2. **Install Dependencies**: Ensure you have Python and the other requirements installed. You can install the requirements using pip:
 
-2. 
-**Install Dependencies**: Ensure you have Python and the other requirements installed. You can install the requirements using pip:
+If used globally:
+
     ```sh
-    pip3 (or pip if using in environment) install -r requirements.txt
+    pip3 install -r requirements.txt
+    ```
+If used in virtual environment:
+
+    ```sh
+    pip install -r requirements.txt
+    ```
 
 3. **Run the Application**: Start the Flask development server by running:
     ```sh
@@ -33,4 +39,3 @@ To run the Flask application, follow these steps:
     ```
 
 4. **Access the Application**: Open your web browser and go to `http://127.0.0.1:3000` to view your application.
-
