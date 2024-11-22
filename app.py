@@ -191,27 +191,24 @@ def gif_search():
         except ValueError:
             return render_template('gif_search.html', error="Invalid number of GIFs.")
 
-        try:
-            response = requests.get(
-                TENOR_URL,
-                {
-                    'q': search_query,
-                    'key': API_KEY,
-                    'limit': num_gifs
-                }
-            )
-            response.raise_for_status()
-            gifs = json.loads(response.content).get('results', [])
-        except requests.exceptions.RequestException as e:
-            return render_template('gif_search.html', error=f"Failed to fetch GIFs: {e}")
-        except json.JSONDecodeError:
-            return render_template('gif_search.html', error="Error decoding the API response.")
-        
+    try:
+        response = requests.get(
+            TENOR_URL,
+            params={
+                'q': search_query,
+                'key': API_KEY,
+                'limit': num_gifs
+            }
+        )
+        response.raise_for_status()
+        gifs = json.loads(response.content).get('results', [])
+    except requests.exceptions.RequestException as e:
+        return render_template('gif_search.html', error=f"Failed to fetch GIFs: {e}")
+    except json.JSONDecodeError:
+        return render_template('gif_search.html', error="Error decoding the API response.")
 
-        gifs = json.loads(response.content).get('results')
-
-        if not gifs:
-            return render_template('gif_search.html', error="No GIFs found for your search query.")
+    if not gifs:
+        return render_template('gif_search.html', error="No GIFs found for your search query.")
 
         context = {
             'gifs': gifs
