@@ -173,49 +173,53 @@ API_KEY with a value that is the api key for your account. """
 API_KEY = os.getenv('API_KEY')
 print(API_KEY)
 
-TENOR_URL = 'https://api.tenor.com/v1/search'
+TENOR_URL = 'https://tenor.googleapis.com/v2/search'
 pp = PrettyPrinter(indent=4)
 
 @app.route('/gif_search', methods=['GET', 'POST'])
 def gif_search():
     """Show a form to search for GIFs and show resulting GIFs from Tenor API."""
     if request.method == 'POST':
-        search_query = request.form.get('search_query')
+        search_query = request.form.get('search_query', '').strip()
         num_gifs = int(request.form.get('quantity', 10))
-        if not search_query or search_query.strip() == "":
+        if not search_query:
             app.logger.info("Empty search query submitted.")
             return render_template('gif_search.html', error="Search query cannot be empty.")
+        
         try:
-            num_gifs = int(num_gifs)
+            num_gifs = int(request.form.get('quantity', 10))
             if num_gifs < 1 or num_gifs > 10:
                 raise ValueError("Number of GIFs must be between 1 and 10.")
         except ValueError:
+            app.logger.info("Invalid number of GIFs submitted.")
             return render_template('gif_search.html', error="Invalid number of GIFs.")
 
-    try:
-        response = requests.get(
-            TENOR_URL,
-            params={
-                'q': search_query,
-                'key': API_KEY,
-                'limit': num_gifs
-            }
-        )
-        response.raise_for_status()
-        gifs = json.loads(response.content).get('results', [])
-    except requests.exceptions.RequestException as e:
-        return render_template('gif_search.html', error=f"Failed to fetch GIFs: {e}")
-    except json.JSONDecodeError:
-        return render_template('gif_search.html', error="Error decoding the API response.")
+        try:
+            # Make request to Tenor API
+            response = requests.get(
+                TENOR_URL,
+                params={
+                    'q': search_query,
+                    'key': API_KEY,
+                    'limit': num_gifs
+                }
+            )
+            response.raise_for_status() 
+            gifs = response.json().get('results', [])  # Get 'results' from JSON
+            pp.pprint(gifs)  # Debug: Log API response to terminal
+        except requests.exceptions.RequestException as e:
+            app.logger.error(f"Failed to fetch GIFs: {e}")
+            return render_template('gif_search.html', error=f"Failed to fetch GIFs: {e}")
+        except json.JSONDecodeError:
+            app.logger.error("Error decoding the API response.")
+            return render_template('gif_search.html', error="Error decoding the API response.")
 
-    if not gifs:
-        return render_template('gif_search.html', error="No GIFs found for your search query.")
-    
-    context = {
-        'gifs': gifs
-    }
+        if not gifs:
+            return render_template('gif_search.html', error="No GIFs found for your search query.")
 
-    return render_template('gif_search.html', **context)
+        # Pass GIFs to template
+        context = {'gifs': gifs}
+        return render_template('gif_search.html', **context)
 
 if __name__ == '__main__':
     app.config['ENV'] = 'development'
