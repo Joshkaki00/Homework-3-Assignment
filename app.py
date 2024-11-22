@@ -209,14 +209,12 @@ def gif_search():
 
     if not gifs:
         return render_template('gif_search.html', error="No GIFs found for your search query.")
+    
+    context = {
+        'gifs': gifs
+    }
 
-        context = {
-            'gifs': gifs
-        }
-
-        return render_template('gif_search.html', **context)
-    else:
-        return render_template('gif_search.html')
+    return render_template('gif_search.html', **context)
 
 if __name__ == '__main__':
     app.config['ENV'] = 'development'
