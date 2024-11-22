@@ -32,6 +32,14 @@ To run the Flask application, follow these steps:
     ```
 
 3. **Run the Application**: Start the Flask development server by running:
+If used globally:
+
+    ```sh
+    python3 app.py
+    ```
+
+If used in virtual enviroment:
+
     ```sh
     python app.py
     ```
